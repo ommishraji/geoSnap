@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "260301549772",
+    "project_id": "geosnap-8a9cc",
+    "storage_bucket": "geosnap-8a9cc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:260301549772:android:7b1761010955ae046e5269",
+        "android_client_info": {
+          "package_name": "com.example.untitled1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB-G4fV3iliYkzzPDwe4CumoR5hAe5ZRSs"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
