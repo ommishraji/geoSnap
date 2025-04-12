@@ -41,7 +41,7 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'YOUR_API_KEY',
+    apiKey: 'AIzaSyAtSIMU2ivQMDe-e__13HaY58IJQZaQ9O4',
     appId: '1:260301549772:web:f796a06307c0fa3c6e5269',
     messagingSenderId: '260301549772',
     projectId: 'geosnap-8a9cc',
@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'YOUR_API_KEY',
+    apiKey: 'AIzaSyB-G4fV3iliYkzzPDwe4CumoR5hAe5ZRSs',
     appId: '1:260301549772:android:7b1761010955ae046e5269',
     messagingSenderId: '260301549772',
     projectId: 'geosnap-8a9cc',
@@ -59,7 +59,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'YOUR_API_KEY',
+    apiKey: 'AIzaSyCg_iTVPhHAnDq2xFmUvQ3V4QrydgMUl6k',
     appId: '1:260301549772:ios:fb3541af27d105796e5269',
     messagingSenderId: '260301549772',
     projectId: 'geosnap-8a9cc',
@@ -68,7 +68,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'YOUR_API_KEY',
+    apiKey: 'AIzaSyCg_iTVPhHAnDq2xFmUvQ3V4QrydgMUl6k',
     appId: '1:260301549772:ios:fb3541af27d105796e5269',
     messagingSenderId: '260301549772',
     projectId: 'geosnap-8a9cc',
@@ -77,7 +77,7 @@ class DefaultFirebaseOptions {
   );
 
   static const FirebaseOptions windows = FirebaseOptions(
-    apiKey: 'YOUR_API_KEY',
+    apiKey: 'AIzaSyAtSIMU2ivQMDe-e__13HaY58IJQZaQ9O4',
     appId: '1:260301549772:web:6ded3bddaa7248dc6e5269',
     messagingSenderId: '260301549772',
     projectId: 'geosnap-8a9cc',

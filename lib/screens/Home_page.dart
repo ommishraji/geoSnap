@@ -1,7 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'dart:math';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -9,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 File? pickedImage;
 class Home_page extends StatefulWidget {
   const Home_page({super.key});
@@ -24,13 +21,12 @@ class _Home_pageState extends State<Home_page> {
   bool spin = true;
   GoogleMapController? _googleMapController;
   final FirebaseFirestore cloud = FirebaseFirestore.instance;
-  LatLng userlocatiion = LatLng(360, 360);
+  LatLng userlocatiion = const LatLng(360, 360);
   String locationName = "Current location";
 
   Future<void> checkLocationPermission() async {
     bool serviceEnabled;
     LocationPermission permission;
-    // Check if location services are enabled
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
       return Future.error('Location services are disabled.');
@@ -85,7 +81,7 @@ class _Home_pageState extends State<Home_page> {
     setState(() {
       spin = true;
     });
-    if(userlocatiion == LatLng(360, 360)) {
+    if(userlocatiion == const LatLng(360, 360)) {
       return;
     }
     final storageRef = FirebaseStorage.instance.ref();
@@ -121,42 +117,14 @@ class _Home_pageState extends State<Home_page> {
       userlocatiion = latLng;
       locationName = "Selected location";
     });
-    // You can now use the selectedLocation variable as needed
-    print('Latitude: ${latLng.latitude}, Longitude: ${latLng.longitude}');
+    //print('Latitude: ${latLng.latitude}, Longitude: ${latLng.longitude}');
   }
 
   void toast(String text){
     ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text(text)));
   }
-  // Future<void> _showDialog(BuildContext context) {
-  //   return showDialog<void>(
-  //     context: context,
-  //     barrierDismissible: false, // User must tap button to close the dialog
-  //     builder: (BuildContext context) {
-  //       return AlertDialog(
-  //         content: Text(
-  //           'Select Location',
-  //         ),
-  //         actions: <Widget>[
-  //           TextButton(
-  //             child: Text('Current Location'),
-  //             onPressed: () {
-  //               uploadImage(userlocatiion);
-  //               Navigator.pop(context);
-  //             },
-  //           ),
-  //           TextButton(
-  //             child: Text('Search'),
-  //             onPressed: () async {
-  //               //search custom location
-  //             },
-  //           ),
-  //         ],
-  //       );
-  //     },
-  //   );
-  // }
 
+  @override
   void dispose(){
     _googleMapController?.dispose();
     super.dispose();
@@ -164,16 +132,16 @@ class _Home_pageState extends State<Home_page> {
 
   @override
   void initState() {
+    super.initState();
     setState(() {
       checkLocationPermission();
     });
-    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: userlocatiion == LatLng(360, 360) ? Container(
+      body: userlocatiion == const LatLng(360, 360) ? const SizedBox(
         height: double.infinity,
         width: double.infinity,
         child: Center(
@@ -191,12 +159,12 @@ class _Home_pageState extends State<Home_page> {
           onLongPress: _onMapLongPress,
           markers: {
             Marker(
-              markerId: MarkerId('location1'),
+              markerId: const MarkerId('location1'),
               infoWindow: InfoWindow(title: locationName),
               icon: BitmapDescriptor.defaultMarker,
               position: userlocatiion,
               onTap: (){
-                BottomSheet(context, userlocatiion);
+                bottomSheet(context, userlocatiion);
               }
             ),
           },
@@ -208,7 +176,7 @@ class _Home_pageState extends State<Home_page> {
         floatingActionButton: Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            SizedBox(
+            const SizedBox(
               width: 30,
             ),
             Column(
@@ -221,11 +189,11 @@ class _Home_pageState extends State<Home_page> {
                     },
                   backgroundColor: Colors.white,
                   splashColor: Colors.green,
-                child: Icon(
+                child: const Icon(
                   Icons.my_location_outlined,
                   color: Colors.blue,
                 ),),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 ),
                 FloatingActionButton(onPressed: () async {
@@ -234,13 +202,13 @@ class _Home_pageState extends State<Home_page> {
                   }
                 },
                   backgroundColor: Colors.pink,
-                  child: Icon(
+                  splashColor: Colors.lightBlue,
+                  child: const Icon(
                     Icons.camera,
                     size: 40,
                   ),
-                  splashColor: Colors.lightBlue,
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 )
               ],
@@ -252,19 +220,20 @@ class _Home_pageState extends State<Home_page> {
 
   }
 
-  Future<dynamic> BottomSheet(BuildContext context, LatLng location) {
+  Future<dynamic> bottomSheet(BuildContext context, LatLng location) {
     return showModalBottomSheet(
                   context: context,
                   builder: (BuildContext context){
                     return StreamBuilder(
                       stream: getImages(location),
                       builder: (context, snapshot) {
-                        if(!snapshot.hasData)
-                          return Center(
+                        if(!snapshot.hasData) {
+                          return const Center(
                             child: Text(
                               'No images found',
                             ),
                           );
+                        }
                         var images = snapshot.data!.docs;
                         return ListView.builder(
                           scrollDirection: Axis.horizontal,
@@ -273,20 +242,20 @@ class _Home_pageState extends State<Home_page> {
                               var image = images[index];
                               return Row(
                                 children: [
-                                  index == 0 ? SizedBox(
+                                  index == 0 ? const SizedBox(
                                     width: 20,
-                                  ): SizedBox(),
+                                  ): const SizedBox(),
                                   SizedBox(
+                                    height: MediaQuery.of(context).size.height*.4,
+                                    width: MediaQuery.of(context).size.width*.7,
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(20),
                                       child: Image.network(image['imageLink'],
                                       fit: BoxFit.cover,
                                       ),
                                     ),
-                                    height: MediaQuery.of(context).size.height*.4,
-                                    width: MediaQuery.of(context).size.width*.7,
                                   ),
-                                  SizedBox(
+                                  const SizedBox(
                                     width: 10,
                                   )
                                 ],
